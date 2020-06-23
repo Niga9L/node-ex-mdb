@@ -16,7 +16,9 @@
 .course h1 {
     margin-bottom: 2rem;
 }
-
+h1 {
+    font-size: 3rem;
+}
 .course img {
     max-width: 600px;
     height: auto;
@@ -37,4 +39,17 @@
 
 .form-edit {
     margin-bottom: 1rem;
+}
+
+.auth {
+    padding-top: 1rem;
+}
+
+.alert {
+    padding: .5rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+    background: rgba(255, 0, 0, .3);
+    color: red;
 }

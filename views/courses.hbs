@@ -12,13 +12,16 @@
         <span class="card-title">{{title}}</span>
         <p class="price">{{price}}</p>
       </div>
-      <div class="card-action actions">
+      <div class="card-action flexed">
         <a href="/courses/{{_id}}" target="_blank">Открыть курс</a>
+	      {{#if @root.isAuth}}
         <a href="/courses/{{_id}}/edit?allow=true">Редактировать</a>
         <form action="/card/add" method="POST">
+	        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
           <input type="hidden" name="id" value="{{_id}}">
           <button type="submit" class="btn btn-primary">Купить</button>
         </form>
+		    {{/if}}
       </div>
     </div>
   </div>
