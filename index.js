@@ -16,18 +16,19 @@ const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
+const keys = require('./keys/index')
 
-const MONGODB_URL = `mongodb+srv://Niga9L:nZ90JfXTL5TINbhu@cluster0-csbuk.mongodb.net/shop`
 const app = express()
 
 const hbs = exphbs.create({
     defaultLayout: 'main',
     extname: 'hbs',
+    helpers: require('./utils/hbs-helpers')
 })
 
 const store = new MongoStore({
     collection: 'session',
-    uri: MONGODB_URL
+    uri: keys.MONGODB_URL
 })
 
 app.engine('hbs', exphbs({
@@ -41,7 +42,7 @@ app.set('views', "views")
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
 app.use(session({
-    secret: 'some secret value',
+    secret: keys.SECRET_VALUE,
     resave: false,
     saveUninitialized: false,
     store
@@ -63,7 +64,7 @@ const PORT = process.env.PORT || 3000
 
 async function start() {
     try {
-        await mongoose.connect(MONGODB_URL, {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false})
+        await mongoose.connect(keys.MONGODB_URL, {useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false})
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`)
         })
